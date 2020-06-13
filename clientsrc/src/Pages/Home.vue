@@ -7,28 +7,28 @@
     </div>
     <!-- Bug Display -->
     <div class="row mt-5 justify-content-center">
-      <div class="col-10 border bug-display bg-warning">
+      <div class="col-11 border bug-display bg-warning">
         <div class="row top-box bg-info text-center text-light">
-          <div class="col-2">
-            <h3>Title</h3>
+          <div class="col-3">
+            <h4>Title</h4>
           </div>
           <div class="col-1">
-            <h3>|</h3>
+            <h4>|</h4>
           </div>
-          <div class="col-2">
-            <h3>Reported By</h3>
-          </div>
-          <div class="col-1">
-            <h3>|</h3>
-          </div>
-          <div class="col-2">
-            <h3>Status</h3>
+          <div class="col-3">
+            <h4>Reported By</h4>
           </div>
           <div class="col-1">
-            <h3>|</h3>
+            <h4>|</h4>
+          </div>
+          <div class="col-1">
+            <h4>Status</h4>
+          </div>
+          <div class="col-1">
+            <h4>|</h4>
           </div>
           <div class="col-2">
-            <h3>Last Modified</h3>
+            <h4>Last Modified</h4>
           </div>
         </div>
         <div class="row">
@@ -63,5 +63,6 @@ export default {
 <style scoped>
 .bug-display {
   height: 60vh;
+  overflow-y: auto;
 }
 </style>

@@ -29,6 +29,12 @@ export default new Vuex.Store({
     setAllBugs(state, bugs) {
       state.bugs = bugs;
     },
+    setActiveBug(state, bug) {
+      state.activeBug = bug;
+    },
+    setNotes(state, notes) {
+      state.notes = notes;
+    },
   },
   actions: {
     //#region Profile Functions
@@ -56,5 +62,25 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async getActiveBug({ commit, dispatch }, id) {
+      try {
+        let res = await api.get("bugs/" + id);
+        commit("setActiveBug", res.data);
+        console.log(this.state.activeBug);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    //#endregion
+    //#region Note Functions
+    async getNotes({ commit, dispatch }, id) {
+      try {
+        let res = await api.get("bugs/" + id + "/notes");
+        commit("setNotes", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    //#endregion
   },
 });
