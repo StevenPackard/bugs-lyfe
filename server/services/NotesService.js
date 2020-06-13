@@ -19,10 +19,9 @@ class NotesService {
     });
     return data;
   }
-  async delete(id, email) {
+  async delete(id) {
     let data = await dbContext.Notes.findByIdAndDelete({
       _id: id,
-      creatorEmail: email,
     });
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this note");

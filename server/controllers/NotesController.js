@@ -35,7 +35,7 @@ export class NotesController extends BaseController {
   }
   async delete(req, res, next) {
     try {
-      await notesService.delete(req.params.id, res.userInfo.email);
+      await notesService.delete(req.params.id);
     } catch (error) {
       next(error);
     }

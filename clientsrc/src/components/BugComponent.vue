@@ -15,8 +15,8 @@
           <h4>|</h4>
         </div>
         <div class="col-1 p-0">
-          <h4 v-if="bug.closed == false">Open</h4>
-          <h4 v-if="bug.closed == true">Closed</h4>
+          <h4 class="open-color" v-if="bug.closed == false">Open</h4>
+          <h4 class="closed-color" v-if="bug.closed == true">Closed</h4>
         </div>
         <div class="col-1">
           <h4>|</h4>
@@ -53,5 +53,11 @@ export default {
 <style scoped>
 .wrapper {
   word-wrap: break-word;
+}
+.open-color {
+  color: green;
+}
+.closed-color {
+  color: red;
 }
 </style>

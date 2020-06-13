@@ -14,7 +14,7 @@
         <h3>|</h3>
       </div>
       <div class="col-3">
-        <button class="btn btn-danger">X</button>
+        <button @click="deleteNote" class="btn btn-danger">X</button>
       </div>
     </div>
   </div>
@@ -28,7 +28,14 @@ export default {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    deleteNote() {
+      this.$store.dispatch("deleteNote", {
+        id: this.note.id,
+        bugId: this.note.bugId
+      });
+    }
+  },
   components: {},
   props: ["note"]
 };

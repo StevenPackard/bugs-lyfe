@@ -35,6 +35,12 @@ export default new Vuex.Store({
     setNotes(state, notes) {
       state.notes = notes;
     },
+    addToNotes(state, note) {
+      state.notes.push = note;
+    },
+    resetActive(state) {
+      state.activeBug = {};
+    },
   },
   actions: {
     //#region Profile Functions
@@ -77,6 +83,23 @@ export default new Vuex.Store({
       try {
         let res = await api.get("bugs/" + id + "/notes");
         commit("setNotes", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async addNote({ commit, dispatch }, noteData) {
+      try {
+        let res = await api.post("notes", noteData);
+        commit("addToNotes", res.data);
+        dispatch("getNotes", noteData.bugId);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteNote({ commit, dispatch }, data) {
+      try {
+        let res = await api.delete("notes/" + data.id);
+        dispatch("getNotes", data.bugId);
       } catch (error) {
         console.error(error);
       }
