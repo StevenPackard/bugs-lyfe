@@ -2,8 +2,11 @@ import { dbContext } from "../db/DbContext";
 import { BadRequest } from "../utils/Errors";
 
 class BugsService {
-  async findAll(query = {}) {
-    let data = await dbContext.Bugs.find(query);
+  async find(query = {}) {
+    let data = await dbContext.Bugs.find(query).populate(
+      "creator",
+      "name picture"
+    );
     return data;
   }
   async findById(id) {
