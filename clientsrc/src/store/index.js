@@ -12,19 +12,26 @@ let baseUrl = location.host.includes("localhost")
 let api = Axios.create({
   baseURL: baseUrl + "api",
   timeout: 3000,
-  withCredentials: true
+  withCredentials: true,
 });
 
 export default new Vuex.Store({
   state: {
-    profile: {}
+    profile: {},
+    bugs: [],
+    notes: [],
+    activeBug: {},
   },
   mutations: {
     setProfile(state, profile) {
       state.profile = profile;
-    }
+    },
+    setAllBugs(state, bugs) {
+      state.bugs = bugs;
+    },
   },
   actions: {
+    //#region Profile Functions
     setBearer({}, bearer) {
       api.defaults.headers.authorization = bearer;
     },
@@ -38,6 +45,16 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error);
       }
-    }
-  }
+    },
+    //#endregion
+    //#region Bug Functions
+    async getAllBugs({ commit, dispatch }) {
+      try {
+        let res = await api.get("bugs");
+        commit("setAllBugs", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
 });

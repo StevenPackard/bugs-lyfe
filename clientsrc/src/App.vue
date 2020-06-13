@@ -1,7 +1,11 @@
 <template>
-  <div id="app">
+  <div id="app" class="app-grow">
     <navbar />
-    <router-view />
+    <router-view class="grow" />
+    <footer>
+      <p class="text-center">Made by Steven Packard</p>
+      <p></p>
+    </footer>
   </div>
 </template>
 
@@ -18,8 +22,8 @@ export default {
     }
   },
   components: {
-    Navbar,
-  },
+    Navbar
+  }
 };
 </script>
 
@@ -27,4 +31,15 @@ export default {
 @import "./assets/_variables.scss";
 @import "bootstrap";
 @import "./assets/_overrides.scss";
+</style>
+<style>
+.app-grow {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: auto;
+}
+.grow {
+  flex-grow: 1;
+}
 </style>
