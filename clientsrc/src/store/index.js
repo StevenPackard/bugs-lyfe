@@ -77,6 +77,14 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async closeBug({ commit, dispatch }, id) {
+      try {
+        let res = await api.delete("bugs/" + id);
+        dispatch("getActiveBug", id);
+      } catch (error) {
+        console.error(error);
+      }
+    },
     //#endregion
     //#region Note Functions
     async getNotes({ commit, dispatch }, id) {
@@ -96,10 +104,10 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    async deleteNote({ commit, dispatch }, data) {
+    async deleteNote({ commit, dispatch }, noteData) {
       try {
-        let res = await api.delete("notes/" + data.id);
-        dispatch("getNotes", data.bugId);
+        await api.delete("notes/" + noteData.id);
+        dispatch("getNotes", noteData.bugId);
       } catch (error) {
         console.error(error);
       }

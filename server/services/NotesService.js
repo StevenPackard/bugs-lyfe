@@ -20,9 +20,7 @@ class NotesService {
     return data;
   }
   async delete(id) {
-    let data = await dbContext.Notes.findByIdAndDelete({
-      _id: id,
-    });
+    let data = await dbContext.Notes.findByIdAndDelete(id);
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this note");
     }

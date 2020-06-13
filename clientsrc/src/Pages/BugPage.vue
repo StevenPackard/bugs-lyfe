@@ -25,7 +25,7 @@
         <h5>{{bug.description}}</h5>
       </div>
       <div v-if="bug.closed == false" class="col-6 text-center mt-3">
-        <button class="btn btn-danger">Close</button>
+        <button @click="closeBug" class="btn btn-danger">Close</button>
       </div>
     </div>
     <div class="row justify-content-center mt-3">
@@ -54,13 +54,7 @@
           </div>
         </div>
         <div class="row">
-          <note
-            v-for="note in notes"
-            :key="note.id"
-            :note="note"
-            :profile="profile"
-            :bugId="bug.id"
-          />
+          <note v-for="note in notes" :key="note.id" :note="note" :profile="profile" />
         </div>
       </div>
       <div class="col-10">
@@ -109,6 +103,9 @@ export default {
       this.newNote = {
         bugId: this.$route.params.id
       };
+    },
+    closeBug() {
+      this.$store.dispatch("closeBug", this.bug.id);
     }
   },
   computed: {

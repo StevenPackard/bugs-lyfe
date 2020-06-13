@@ -26,7 +26,9 @@
         </li>
       </ul>
       <span class="navbar-text">
-        <button class="btn btn-success mx-5" v-if="$auth.isAuthenticated">Report a bug</button>
+        <router-link class="navbar-brand" :to="{ name: 'BugSubmit' }">
+          <button class="btn btn-success mx-5" v-if="$auth.isAuthenticated">Report a bug</button>
+        </router-link>
       </span>
       <span class="navbar-text">
         <button class="btn btn-success mx-2" @click="login" v-if="!$auth.isAuthenticated">Login</button>
@@ -52,7 +54,8 @@ export default {
     async logout() {
       this.$store.dispatch("resetBearer");
       await this.$auth.logout({ returnTo: window.location.origin });
-    }
+    },
+    showBugReport() {}
   }
 };
 </script>

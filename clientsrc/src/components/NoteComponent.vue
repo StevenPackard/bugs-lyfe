@@ -30,10 +30,7 @@ export default {
   computed: {},
   methods: {
     deleteNote() {
-      this.$store.dispatch("deleteNote", {
-        id: this.note.id,
-        bugId: this.note.bugId
-      });
+      this.$store.dispatch("deleteNote", this.note);
     }
   },
   components: {},
