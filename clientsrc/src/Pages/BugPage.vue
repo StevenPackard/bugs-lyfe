@@ -163,6 +163,7 @@ export default {
 .body-box {
   min-height: 20vh;
   overflow-y: auto;
+  word-wrap: normal;
 }
 .notes-box {
   background-color: grey;
