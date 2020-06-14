@@ -1,29 +1,29 @@
 <template>
-  <div class="bug-component col-12 border-bottom my-1">
+  <div class="bug-component col-12 border-bottom my-1 bg-secondary">
     <router-link class="nav-link" :to="{ name: 'BugPage', params: { id: bug.id }}">
-      <div class="row text-center">
+      <div class="row text-center align-items-center">
         <div class="col-3">
           <h4>{{bug.title}}</h4>
         </div>
-        <div class="col-1 p-0">
-          <h4>|</h4>
+        <div class="col-1">
+          <i class="fas fa-lg fa-bug"></i>
         </div>
-        <div class="col-3 wrapper">
+        <div class="col-2">
           <h4>{{bug.creator.name}}</h4>
         </div>
-        <div class="col-1 p-0">
-          <h4>|</h4>
+        <div class="col-1">
+          <i class="fas fa-lg fa-bug"></i>
         </div>
-        <div class="col-1 p-0">
+        <div class="col-2">
           <h4 class="open-color" v-if="bug.closed == false">Open</h4>
           <h4 class="closed-color" v-if="bug.closed == true">Closed</h4>
         </div>
         <div class="col-1">
-          <h4>|</h4>
+          <i class="fas fa-lg fa-bug"></i>
         </div>
         <div class="col-2">
           <h4>
-            {{ new Date(bug.createdAt).toLocaleString("en-US", {
+            {{ new Date(bug.updatedAt).toLocaleString("en-US", {
             month: "short",
             day: "numeric",
             year: "numeric",
@@ -59,5 +59,11 @@ export default {
 }
 .closed-color {
   color: red;
+}
+.custom-border-bottom {
+  border-right: 3px solid black;
+}
+.custom-border-left {
+  border-left: 3px solid black;
 }
 </style>

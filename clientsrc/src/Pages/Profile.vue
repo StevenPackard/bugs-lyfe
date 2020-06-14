@@ -1,8 +1,12 @@
 <template>
-  <div class="about text-center">
-    <h1>Welcome {{ profile.name }}</h1>
-    <img class="rounded" :src="profile.picture" alt="" />
-    <p>{{ profile.email }}</p>
+  <div class="about container-fluid">
+    <div class="row text-center">
+      <div class="col">
+        <h1>Welcome {{ profile.name }}</h1>
+        <img class="rounded" :src="profile.picture" alt />
+        <p>{{ profile.email }}</p>
+      </div>
+    </div>
   </div>
 </template>
 

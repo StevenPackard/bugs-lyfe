@@ -77,6 +77,14 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async submitBug({ commit, dispatch }, bugData) {
+      try {
+        await api.post("bugs", bugData);
+        dispatch("getAllBugs");
+      } catch (error) {
+        console.error(error);
+      }
+    },
     async closeBug({ commit, dispatch }, id) {
       try {
         let res = await api.delete("bugs/" + id);

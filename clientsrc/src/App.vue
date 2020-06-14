@@ -38,6 +38,7 @@ export default {
   flex-direction: column;
   min-height: 100vh;
   overflow-x: auto;
+  background-image: url("./assets/image1.png");
 }
 .grow {
   flex-grow: 1;

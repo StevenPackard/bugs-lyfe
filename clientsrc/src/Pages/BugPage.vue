@@ -1,77 +1,106 @@
 <template>
   <div class="bug-page container-fluid">
-    <div class="row">
-      <div class="col">
-        <h1>{{bug.title}}</h1>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        <h3>Reported By: {{bug.creatorEmail}}</h3>
-      </div>
-      <div class="col-6 text-right">
-        <h2 v-if="bug.closed == true">
-          Status:
-          <span class="closed-color">Closed</span>
-        </h2>
-        <h2 v-if="bug.closed == false">
-          Status:
-          <span class="open-color">Open</span>
-        </h2>
-      </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-10 body-box bg-warning">
-        <h5>{{bug.description}}</h5>
-      </div>
-      <div v-if="bug.closed == false" class="col-6 text-center mt-3">
-        <button @click="closeBug" class="btn btn-danger">Close</button>
-      </div>
-    </div>
-    <div class="row justify-content-center mt-3">
-      <div class="col-6">
-        <h1>Notes</h1>
-      </div>
-      <div class="col-6 text-right">
-        <button @click="noteForm = !noteForm" class="btn btn-success mr-5">Add Note</button>
-      </div>
-      <div class="col-11 notes-box">
-        <div class="row bg-light border text-center">
-          <div class="col-3">
-            <h3>Name</h3>
-          </div>
-          <div class="col-1">
-            <h3>|</h3>
-          </div>
-          <div class="col-4">
-            <h3>Message</h3>
-          </div>
-          <div class="col-1">
-            <h3>|</h3>
-          </div>
-          <div class="col-3">
-            <h3>Delete</h3>
+    <div class="row justify-content-center my-2">
+      <div class="col-11 bg-white mb-2">
+        <div class="row">
+          <div class="col">
+            <h1 class="m-0">{{bug.title}}</h1>
           </div>
         </div>
         <div class="row">
+          <div class="col-6">
+            <h3>Reported By: {{bug.creatorEmail}}</h3>
+          </div>
+          <div class="col-6 text-right">
+            <h2 v-if="bug.closed == true">
+              Status:
+              <span class="closed-color">Closed</span>
+            </h2>
+            <h2 v-if="bug.closed == false">
+              Status:
+              <span class="open-color">Open</span>
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-10 body-box bg-white shadow">
+        <h5 class="p-2">{{bug.description}}</h5>
+      </div>
+      <div v-if="bug.closed == false" class="col-6 text-center mt-3">
+        <button @click="closeBug" class="btn btn-danger shadow">Close</button>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+      <div class="col-11">
+        <div class="row mb-2">
+          <div class="col-2">
+            <h1 class="bg-white text-center shadow">Notes</h1>
+          </div>
+          <div class="col-10 text-right">
+            <button
+              data-toggle="modal"
+              data-target="#addNoteModal"
+              class="btn btn-success mr-5 shadow"
+            >Add Note</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-11 notes-box shadow">
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <div class="row bg-light text-center">
+              <div class="col-4 border-right">
+                <h3>Name</h3>
+              </div>
+
+              <div class="col-6 border-left border-right">
+                <h3>Message</h3>
+              </div>
+
+              <div class="col-2 border-left">
+                <h3>Delete</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center">
           <note v-for="note in notes" :key="note.id" :note="note" :profile="profile" />
         </div>
       </div>
-      <div class="col-10">
-        <form v-if="noteForm" @submit.prevent="addNote" class="row justify-content-center">
-          <div class="form-group col-10">
-            <label for="new-comment">New Note</label>
-            <input
-              class="form-control form-control-lg wide-note"
-              type="text"
-              placeholder="new note..."
-              v-model="newNote.content"
-            />
+    </div>
+    <div
+      class="modal fade"
+      id="addNoteModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="addNoteModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addNoteModalLabel">Add a note</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <div class="col-2">
-            <button type="submit" class="btn btn-success mt-4">+</button>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <!-- <label for="bug-description" class="col-form-label">Description:</label> -->
+                <textarea class="form-control" v-model="newNote.content" id="note-description"></textarea>
+              </div>
+            </form>
           </div>
-        </form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" @click="addNote">Add Note</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -133,10 +162,11 @@ export default {
 }
 .body-box {
   min-height: 20vh;
+  overflow-y: auto;
 }
 .notes-box {
   background-color: grey;
-  height: 30vh;
+  height: 40vh;
   overflow-y: auto;
 }
 .notes-row {
@@ -145,5 +175,8 @@ export default {
 }
 .wide-note {
   width: 80%;
+}
+.text-color-blue {
+  color: rgb(0, 0, 0);
 }
 </style>

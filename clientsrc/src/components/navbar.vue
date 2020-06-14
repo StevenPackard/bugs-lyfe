@@ -1,6 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <router-link class="navbar-brand" :to="{ name: 'Home' }">Bug Lyfe</router-link>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <router-link class="navbar-brand" :to="{ name: 'Home' }">
+      <i class="fas fa-bug"></i> Lyfe
+    </router-link>
     <button
       class="navbar-toggler"
       type="button"
@@ -26,14 +28,52 @@
         </li>
       </ul>
       <span class="navbar-text">
-        <router-link class="navbar-brand" :to="{ name: 'BugSubmit' }">
-          <button class="btn btn-success mx-5" v-if="$auth.isAuthenticated">Report a bug</button>
-        </router-link>
+        <button
+          class="btn btn-info mx-5"
+          data-toggle="modal"
+          data-target="#reportBugModal"
+          v-if="$auth.isAuthenticated"
+        >Report a bug</button>
       </span>
       <span class="navbar-text">
         <button class="btn btn-success mx-2" @click="login" v-if="!$auth.isAuthenticated">Login</button>
         <button class="btn btn-danger" @click="logout" v-else>logout</button>
       </span>
+    </div>
+    <div
+      class="modal fade"
+      id="reportBugModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="reportBugModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="reportBugModalLabel">Report a Bug</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="bug-title" class="col-form-label">Title:</label>
+                <input type="text" v-model="newBug.title" class="form-control" id="bug-title" />
+              </div>
+              <div class="form-group">
+                <label for="bug-description" class="col-form-label">Description:</label>
+                <textarea class="form-control" v-model="newBug.description" id="bug-description"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" @click="submitBug">Submit Report</button>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 </template>
@@ -43,6 +83,11 @@ import axios from "axios";
 import { getUserData } from "@bcwdev/auth0-vue";
 export default {
   name: "Navbar",
+  data() {
+    return {
+      newBug: {}
+    };
+  },
   methods: {
     async login() {
       await this.$auth.loginWithPopup();
@@ -55,18 +100,21 @@ export default {
       this.$store.dispatch("resetBearer");
       await this.$auth.logout({ returnTo: window.location.origin });
     },
-    showBugReport() {}
+    submitBug() {
+      this.$store.dispatch("submitBug", { ...this.newBug });
+      this.newBug = {};
+    }
   }
 };
 </script>
 
 <style>
-.navbar {
+/* .navbar {
   background-image: linear-gradient(
     110deg,
     rgba(28, 181, 224, 0.4) 0,
     #000046 90%
   );
-}
+} */
 </style>
 
