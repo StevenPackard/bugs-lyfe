@@ -17,14 +17,18 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" :class="{ active: $route.name == 'Home' }">
-          <router-link :to="{ name: 'Home' }" class="nav-link">Home</router-link>
+          <router-link :to="{ name: 'Home' }" class="nav-link"
+            >Home</router-link
+          >
         </li>
         <li
           class="nav-item"
           v-if="$auth.isAuthenticated"
           :class="{ active: $route.name == 'Profile' }"
         >
-          <router-link class="nav-link" :to="{ name: 'Profile' }">Profile</router-link>
+          <router-link class="nav-link" :to="{ name: 'Profile' }"
+            >Profile</router-link
+          >
         </li>
       </ul>
       <span class="navbar-text">
@@ -33,10 +37,18 @@
           data-toggle="modal"
           data-target="#reportBugModal"
           v-if="$auth.isAuthenticated"
-        >Report a bug</button>
+        >
+          Report a bug
+        </button>
       </span>
       <span class="navbar-text">
-        <button class="btn btn-success mx-2" @click="login" v-if="!$auth.isAuthenticated">Login</button>
+        <button
+          class="btn btn-success mx-2"
+          @click="login"
+          v-if="!$auth.isAuthenticated"
+        >
+          Login
+        </button>
         <button class="btn btn-danger" @click="logout" v-else>logout</button>
       </span>
     </div>
@@ -52,7 +64,12 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="reportBugModalLabel">Report a Bug</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -60,17 +77,36 @@
             <form>
               <div class="form-group">
                 <label for="bug-title" class="col-form-label">Title:</label>
-                <input type="text" v-model="newBug.title" class="form-control" id="bug-title" />
+                <input
+                  type="text"
+                  v-model="newBug.title"
+                  class="form-control"
+                  id="bug-title"
+                />
               </div>
               <div class="form-group">
-                <label for="bug-description" class="col-form-label">Description:</label>
-                <textarea class="form-control" v-model="newBug.description" id="bug-description"></textarea>
+                <label for="bug-description" class="col-form-label"
+                  >Description:</label
+                >
+                <textarea
+                  class="form-control"
+                  v-model="newBug.description"
+                  id="bug-description"
+                ></textarea>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click="submitBug">Submit Report</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary" @click="submitBug">
+              Submit Report
+            </button>
           </div>
         </div>
       </div>
@@ -85,7 +121,7 @@ export default {
   name: "Navbar",
   data() {
     return {
-      newBug: {}
+      newBug: {},
     };
   },
   methods: {
@@ -103,8 +139,8 @@ export default {
     submitBug() {
       this.$store.dispatch("submitBug", { ...this.newBug });
       this.newBug = {};
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -117,4 +153,3 @@ export default {
   );
 } */
 </style>
-

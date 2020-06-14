@@ -79,7 +79,9 @@ export default new Vuex.Store({
     },
     async submitBug({ commit, dispatch }, bugData) {
       try {
-        await api.post("bugs", bugData);
+        let data = await api.post("bugs", bugData);
+        console.log(data.data);
+        router.push({ path: "/bug/" + data.data.id });
         dispatch("getAllBugs");
       } catch (error) {
         console.error(error);
