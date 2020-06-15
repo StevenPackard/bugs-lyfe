@@ -235,6 +235,7 @@ export default {
   methods: {
     addNote() {
       this.$store.dispatch("addNote", { ...this.newNote });
+      $("#addNoteModal").modal("hide");
       this.newNote = {
         bugId: this.$route.params.id,
       };
@@ -255,9 +256,7 @@ export default {
         dangerMode: true,
       }).then((willDelete) => {
         if (willDelete) {
-          // swal("List deleted!", {
-          //   icon: "success",
-          // });
+          $("#editBugModal").modal("hide");
           this.closeBug();
         }
       });

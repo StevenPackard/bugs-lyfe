@@ -123,3 +123,6 @@ export default {
   cursor: pointer;
 }
 </style>
+
+let index = bugs.indexOf({_id: this.bug.id}) = 2 bugs[bugs.indexOf()++] if(index
+== 0){ bugs[bugs.length - 1] }

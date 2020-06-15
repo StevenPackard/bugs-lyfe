@@ -107,6 +107,7 @@
             <button
               type="submit"
               class="btn btn-primary"
+              id="submitButton"
               @click="showSubmitBugAlert"
             >
               Submit Report
@@ -157,6 +158,7 @@ export default {
           // swal("List deleted!", {
           //   icon: "success",
           // });
+          $("#reportBugModal").modal("hide");
           this.submitBug();
         }
       });
