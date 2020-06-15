@@ -95,6 +95,14 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async editBug({ commit, dispatch }, bugData) {
+      try {
+        let res = await api.put("bugs/" + bugData.id, bugData);
+        dispatch("getActiveBug", bugData.id);
+      } catch (error) {
+        console.error(error);
+      }
+    },
     //#endregion
     //#region Note Functions
     async getNotes({ commit, dispatch }, id) {

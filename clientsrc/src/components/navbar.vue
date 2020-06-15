@@ -104,7 +104,11 @@
             >
               Close
             </button>
-            <button type="submit" class="btn btn-primary" @click="submitBug">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              @click="showSubmitBugAlert"
+            >
               Submit Report
             </button>
           </div>
@@ -139,6 +143,23 @@ export default {
     submitBug() {
       this.$store.dispatch("submitBug", { ...this.newBug });
       this.newBug = {};
+    },
+    showSubmitBugAlert() {
+      swal({
+        title: "Are you sure?",
+        text:
+          "Once you report this bug everyone will be able to see it and it cannot be deleted.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          // swal("List deleted!", {
+          //   icon: "success",
+          // });
+          this.submitBug();
+        }
+      });
     },
   },
 };

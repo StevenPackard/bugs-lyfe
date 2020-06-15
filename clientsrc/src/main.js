@@ -5,6 +5,7 @@ import store from "./store";
 import { Auth0Plugin, onAuth } from "@bcwdev/auth0-vue";
 import { domain, clientId, audience } from "./authConfig";
 import { format, render, cancel, register } from "timeago.js";
+import swal from "sweetalert";
 
 Vue.use(Auth0Plugin, {
   domain,
